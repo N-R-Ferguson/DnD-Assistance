@@ -1,0 +1,19 @@
+.ComponentsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  /* border: 2px solid gold;  */
+}
+
+.DiceRollerContainer {
+  border: 2px solid black;
+  width: 24%;
+} 
+
+.NotesAndPlayersContainer {
+  width: 74%;
+  border: 2px solid black;
+} 

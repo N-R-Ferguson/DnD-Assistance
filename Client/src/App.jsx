@@ -1,8 +1,7 @@
 // import { useState } from 'react'
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DiceRoller from './components/DiceRoller';
-import { Button } from '@mui/material';
+import Home from './components/Home';
 
 function App() {
 
@@ -10,7 +9,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={ <DiceRoller />} />
+          <Route path="/" element={ <Home />} />
         </Routes>
       </BrowserRouter>
     </>
