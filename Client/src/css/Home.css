@@ -4,16 +4,20 @@
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
-  width: 100%;
+  width:100%;
+  position: fixed;
   /* border: 2px solid gold;  */
 }
 
 .DiceRollerContainer {
   border: 2px solid black;
-  width: 24%;
+  width: 20%;
+  height:750px;
+  margin-right:1%;
 } 
 
 .NotesAndPlayersContainer {
-  width: 74%;
   border: 2px solid black;
+  width: 74%;
+  height: 750px;
 } 

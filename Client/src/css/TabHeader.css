@@ -1,0 +1,10 @@
+.TabHeaderContainer{
+    margin-bottom: 1%;
+}
+.DisplayContainer {
+    border: 2px solid black;
+    padding-top: 1%;
+    height: 670px;
+    overflow:scroll;
+
+}

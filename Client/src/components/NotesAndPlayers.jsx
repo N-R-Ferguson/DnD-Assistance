@@ -1,10 +1,11 @@
 import React from 'react';
+import TabHeader from './TabHeader'
+import '../css/NotesAndPlayers.css';
 
 function NotesAndPlayers() {
     return (
         <div className="DM-Player-Container">
-            <h2>Notes and Players</h2>
-            <p>This section will contain notes and player information.</p>
+            <TabHeader />
         </div>
     );
 }   

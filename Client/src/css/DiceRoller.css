@@ -5,30 +5,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
-}
-
-.Dice {
-    width: 100%;
-    /* border-color: orange; */
-}
-
-.DiceHistory {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    margin: auto;
-    padding: 1%;
-}
-
-.RollText {
-    border: 2px solid black;
-    width: 100%;
-    height: 10em;
-    overflow-y: scroll;
-    margin: 1%;
+    /* border: 2px solid yellow; */
 }
 
 .DiceSelectorContainer {
@@ -45,7 +22,34 @@
 }
 
 .DiceTextChatAndBoxContainer {
-    /* border: 2px solid purple; */
-    padding-left: 10%;
-    padding-right: 10%;
+    /* border: 2px solid purple;  */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.DiceHistory {
+    /* display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start; */
+    width: 100%;
+    padding: 1%;
+}
+
+.RollText {
+    border: 2px solid black;
+    width: 100%;
+    height: 17em;
+    overflow-y: scroll;
+    margin: 2%;
+}
+
+.DiceBoxContainer {
+    /* border: 2px solid orange; */
+    width: 100%;
 }
