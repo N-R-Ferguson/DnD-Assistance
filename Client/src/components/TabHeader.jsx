@@ -2,23 +2,19 @@ import { React, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import '../css/TabHeader.css';
+import Tabs from './Tabs'
 
 function TabHeader() {
 
     const [tab, setTab] = useState(0);
 
-
     useEffect(() => {
         console.log(`Current tab: ${tab}`);
     },[]);
 
-
     const handleClick = (tabIndex) => (e) => {
         setTab(tabIndex);
-        console.log(tabIndex);
     }
-
-
 
     return (
         <>
@@ -34,10 +30,7 @@ function TabHeader() {
                     </div>
                 </div>
                 <div className='DisplayContainer'>
-                    <div>
-                        <h2>Notes and Players</h2>
-                        <p>This section will contain notes and player information.</p>
-                    </div>
+                    <Tabs tabID={tab}/>
                 </div>
 
             </div>

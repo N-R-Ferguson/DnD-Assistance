@@ -12,19 +12,17 @@ function DiceRoller() {
 
     useEffect(() => {
         console.log("Current Dice", dice);
-    }, []);
+    });
 
     const handleClick = (location) => (e) => {
         if (e.nativeEvent.which === 1) {
             console.log("Left Click!!!");
             dice[location] += 1;
             setDice(dice);
-
         } else if (e.nativeEvent.which == 3) {
             console.log("Right Click!!!");
             dice[location] -= 1;
             setDice(dice);
-
         }
 
         if (dice[location] <= 0) {
