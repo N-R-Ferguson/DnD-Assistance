@@ -1,6 +1,9 @@
-import { react, useEffect, useState } from 'react';
+import Players from './Players';
+import NPC from './NPC';
+import Towns from './Towns';
+import GmNotes from './GmNotes'
 
-function Tabs({ tabID=0 }) {
+function Tabs({ tabID = 0 }) {
 
     console.log(`Tab Function: ${tabID}`);
 
@@ -8,42 +11,32 @@ function Tabs({ tabID=0 }) {
         case 0:
             return (
                 <>
-                    <div>
-                        <h2>Players</h2>
-                    </div>
+                    <Players />
                 </>
             );
         case 1:
             return (
                 <>
-                    <div>
-                        <h2>NPCs</h2>
-                    </div>
+                    <NPC />
                 </>
             );
         case 2:
             return (
                 <>
-                    <div>
-                        <h2>Towns</h2>
-                    </div>
+                    <Towns />
                 </>
             );
         case 3:
             return (
                 <>
-                    <div>
-                        <h2>GM Notes</h2>
-                    </div>
+                    <GmNotes />
                 </>
             );
             ;
         default:
             return (
                 <>
-                    <div>
-                        <h2>Not Working</h2>
-                    </div>
+                    <h2>Not Working</h2>
                 </>
             );
     }

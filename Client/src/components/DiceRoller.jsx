@@ -10,10 +10,6 @@ function DiceRoller() {
     const [dice, setDice] = useState([0, 0, 0, 0, 0, 0, 0]);
     const [diceTextComd, setDiceTextCmd] = useState(null);
 
-    useEffect(() => {
-        console.log("Current Dice", dice);
-    });
-
     const handleClick = (location) => (e) => {
         if (e.nativeEvent.which === 1) {
             console.log("Left Click!!!");
@@ -51,21 +47,41 @@ function DiceRoller() {
         setDice([0, 0, 0, 0, 0, 0, 0]);
     }
 
+    const handleTextRoll = () => {
+        
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            setDiceTextCmd(e.target.value);
+            handleTextRoll()
+        }
+    }
+
+    useEffect(() => {
+        console.log(diceTextComd);
+    });
+
 
     return (
         <>
             <div className="DiceContainer">
                 <div className="DiceSelectorContainer">
-                    <div className="DiceSelector" onContextMenu={handleMenu}>
-                        <Stack spacing={1} direction="column">
-                            <Button variant="outlined" onClick={(e) => handleClick(0)(e)} onContextMenu={(e) => handleClick(0)(e)}>4</Button>
-                            <Button variant="outlined" onClick={(e) => handleClick(1)(e)} onContextMenu={(e) => handleClick(1)(e)}>6</Button>
-                            <Button variant="outlined" onClick={(e) => handleClick(2)(e)} onContextMenu={(e) => handleClick(2)(e)}>8</Button>
-                            <Button variant="outlined" onClick={(e) => handleClick(3)(e)} onContextMenu={(e) => handleClick(3)(e)}>10</Button>
-                            <Button variant="outlined" onClick={(e) => handleClick(4)(e)} onContextMenu={(e) => handleClick(4)(e)}>12</Button>
-                            <Button variant="outlined" onClick={(e) => handleClick(5)(e)} onContextMenu={(e) => handleClick(5)(e)}>20</Button>
-                            <Button variant="outlined" onClick={(e) => handleClick(6)(e)} onContextMenu={(e) => handleClick(6)(e)}>100</Button>
-                        </Stack>
+                    <div className="DiceRollContainer">
+                        <div className="DiceSelector" onContextMenu={handleMenu}>
+                            <Stack spacing={1} direction="column">
+                                <Button variant="outlined" onClick={(e) => handleClick(0)(e)} onContextMenu={(e) => handleClick(0)(e)}>4</Button>
+                                <Button variant="outlined" onClick={(e) => handleClick(1)(e)} onContextMenu={(e) => handleClick(1)(e)}>6</Button>
+                                <Button variant="outlined" onClick={(e) => handleClick(2)(e)} onContextMenu={(e) => handleClick(2)(e)}>8</Button>
+                                <Button variant="outlined" onClick={(e) => handleClick(3)(e)} onContextMenu={(e) => handleClick(3)(e)}>10</Button>
+                                <Button variant="outlined" onClick={(e) => handleClick(4)(e)} onContextMenu={(e) => handleClick(4)(e)}>12</Button>
+                                <Button variant="outlined" onClick={(e) => handleClick(5)(e)} onContextMenu={(e) => handleClick(5)(e)}>20</Button>
+                                <Button variant="outlined" onClick={(e) => handleClick(6)(e)} onContextMenu={(e) => handleClick(6)(e)}>100</Button>
+                            </Stack>
+                        </div>
+                        <div>
+                            <Button variant="outlined" onClick={handleRoll}>Roll</Button>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -77,8 +93,7 @@ function DiceRoller() {
                         </div>
                         <div className="DiceBoxContainer">
                             <div className="DiceTextbox">
-                                <input type="text" className="DiceTextInput" placeholder="Enter Dice Roll Here"></input>
-                                <Button variant="outlined" onClick={handleRoll}>Roll</Button>
+                                <input type="text" className="DiceTextInput" placeholder="Enter Dice Roll Here" onKeyDown={handleKeyDown}></input>
                             </div>
                         </div>
                     </div>

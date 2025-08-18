@@ -12,15 +12,10 @@ function Home() {
                 <div className="DiceRollerContainer">
                     <DiceRoller />
                 </div>
-
-
                 <div className="NotesAndPlayersContainer">
                     <NotesAndPlayers />
                 </div>
-
             </div>
-
-
         </>
     )
 }

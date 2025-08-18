@@ -8,9 +8,6 @@ function TabHeader() {
 
     const [tab, setTab] = useState(0);
 
-    useEffect(() => {
-        console.log(`Current tab: ${tab}`);
-    },[]);
 
     const handleClick = (tabIndex) => (e) => {
         setTab(tabIndex);
