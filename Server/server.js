@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const crypto = require('crypto');
-
+const pool = require('./Connection');
 const app = express();
 
 
@@ -16,28 +16,6 @@ diceMaxValues = {
     4: 12,
     5: 20,
     6: 100
-}
-
-function hashPassword(password) {
-    const builtInPassword = "howdy42069!";
-
-    const salt = crypto.randomBytes(16).toString('hex');
-    const hash = crypto.scryptSync(password, salt, 64).toString('hex');
-
-    const salt2 = crypto.randomBytes(16).toString('hex');
-    const hash2 = crypto.scryptSync(builtInPassword, salt2, 64).toString('hex');
-
-    console.log(hash === hash2);
-    console.log(salt);
-    console.log(salt2);
-    return{hash}
-}
-
-function verifyPassword(password, hash) {
-    const salt = crypto.randomBytes(16).toString('hex');
-    const hashedPassword = crypto.scryptSync(password, salt, 64).toString('hex');
-
-    return hashedPassword === hash
 }
 
 function combineText(text) {
@@ -79,20 +57,23 @@ app.get('/', (req, res) => {
     res.send('D&D Assistance Server is running');
 });
 
-
-app.get('/sign-up', (req, res) => {
-    const password = "howdy42069!";
-
-    hashPassword(password)
-})
-
-
 app.post('/roll-dice', (req, res) => {
     dice = req.body;
     let rollInfo = rollDice(dice);
     console.log(rollInfo);
     res.send(rollInfo);
 });
+
+app.post('/text-roll', (req, res) => {
+    let text = req.body;
+    
+    
+
+
+    console.log(text);
+    res.send('');
+});
+
 
 
 

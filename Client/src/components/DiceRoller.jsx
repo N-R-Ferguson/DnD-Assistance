@@ -8,7 +8,8 @@ import '../css/DiceRoller.css';
 function DiceRoller() {
 
     const [dice, setDice] = useState([0, 0, 0, 0, 0, 0, 0]);
-    const [diceTextComd, setDiceTextCmd] = useState(null);
+    const [diceTextCmd, setDiceTextCmd] = useState(null);
+    const [rollInfo, setRollInfo] = useState([0, 0, null]);
 
     const handleClick = (location) => (e) => {
         if (e.nativeEvent.which === 1) {
@@ -38,28 +39,46 @@ function DiceRoller() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
         }
+        console.log(options);
 
         const response = await fetch(url, options);
         const roll = await response.json();
-        const rollValue = roll[0];
-        const rollList = roll[1];
-        const rollText = roll[2];
+
+        setRollInfo(roll);
+
         setDice([0, 0, 0, 0, 0, 0, 0]);
     }
 
-    const handleTextRoll = () => {
-        
+    const handleTextRoll = async () => {
+        const body = diceTextCmd;
+        const url = "http://localhost:5000/text-roll";
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        }
+        const response = await fetch(url, options);
+        const rollValue = await response.json();
+
     }
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            setDiceTextCmd(e.target.value);
+            let cmd = e.target.value.slice(6);
+            setDiceTextCmd(cmd);
+
             handleTextRoll()
         }
     }
 
     useEffect(() => {
-        console.log(diceTextComd);
+        console.log("Dice Text Command: " + diceTextCmd);
+        // console.log(rollInfo[1]);
+        console.log("Roll Value: " + rollInfo[0] +
+            "\nList of Rolls: " + rollInfo[1] +
+            "\nRolls in Text: " + rollInfo[2]
+        );
+
     });
 
 
@@ -92,8 +111,10 @@ function DiceRoller() {
                             </div>
                         </div>
                         <div className="DiceBoxContainer">
-                            <div className="DiceTextbox">
-                                <input type="text" className="DiceTextInput" placeholder="Enter Dice Roll Here" onKeyDown={handleKeyDown}></input>
+                            <div>
+                                <div className="DiceTextbox">
+                                    <input type="text" className="DiceTextInput" placeholder="Enter Dice Roll /roll 3d6" onKeyDown={handleKeyDown}></input>
+                                </div>
                             </div>
                         </div>
                     </div>

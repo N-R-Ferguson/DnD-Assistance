@@ -3,15 +3,16 @@
     "version": "1.0.0",
     "description": "Server-side application for the project",
     "main": "index.js",
-    "scripts":{
+    "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon server.js"
     },
-    "dependencies":{
-        "express": "^5.1.0",
+    "dependencies": {
         "body-parser": "^1.20.0",
         "cors": "^2.8.5",
-        "pg": "^8.16.3",
-        "nodemon": "^3.1.10"
+        "express": "^5.1.0",
+        "neo4j-driver": "^5.28.1",
+        "nodemon": "^3.1.10",
+        "pg": "^8.16.3"
     }
 }
