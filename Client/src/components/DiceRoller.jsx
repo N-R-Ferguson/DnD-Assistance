@@ -8,8 +8,7 @@ import '../css/DiceRoller.css';
 function DiceRoller() {
 
     const [dice, setDice] = useState([0, 0, 0, 0, 0, 0, 0]);
-    const [diceTextCmd, setDiceTextCmd] = useState(null);
-    const [rollInfo, setRollInfo] = useState([0, 0, null]);
+    const [rollInfo, setRollInfo] = useState([0, 0, ""]);
 
     const handleClick = (location) => (e) => {
         if (e.nativeEvent.which === 1) {
@@ -39,7 +38,6 @@ function DiceRoller() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
         }
-        console.log(options);
 
         const response = await fetch(url, options);
         const roll = await response.json();
@@ -49,31 +47,25 @@ function DiceRoller() {
         setDice([0, 0, 0, 0, 0, 0, 0]);
     }
 
-    const handleTextRoll = async () => {
-        const body = diceTextCmd;
-        const url = "http://localhost:5000/text-roll";
-        const options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body)
-        }
-        const response = await fetch(url, options);
-        const rollValue = await response.json();
-
-    }
-
-    const handleKeyDown = (e) => {
+    const handleKeyDown = async (e) => {
         if (e.key === 'Enter') {
-            let cmd = e.target.value.slice(6);
-            setDiceTextCmd(cmd);
+            const cmd = e.target.value.slice(6);
+            
+            const url = "http://localhost:5000/text-roll";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify([cmd])
+            }
 
-            handleTextRoll()
+            const response = await fetch(url, options);
+            const roll = await response.json();
+            setRollInfo(roll);
         }
     }
 
     useEffect(() => {
-        console.log("Dice Text Command: " + diceTextCmd);
-        // console.log(rollInfo[1]);
+        console.log(rollInfo[1]);
         console.log("Roll Value: " + rollInfo[0] +
             "\nList of Rolls: " + rollInfo[1] +
             "\nRolls in Text: " + rollInfo[2]
@@ -113,7 +105,9 @@ function DiceRoller() {
                         <div className="DiceBoxContainer">
                             <div>
                                 <div className="DiceTextbox">
-                                    <input type="text" className="DiceTextInput" placeholder="Enter Dice Roll /roll 3d6" onKeyDown={handleKeyDown}></input>
+                                    <input type="text" className="DiceTextInput" placeholder="Enter Dice Roll Ex: /roll 3d6"
+                                        onKeyDown={handleKeyDown} >
+                                    </input>
                                 </div>
                             </div>
                         </div>

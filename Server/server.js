@@ -1,12 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const crypto = require('crypto');
-const pool = require('./Connection');
+let Roll = require('roll');
+// const pool = require('./Connection');
 const app = express();
 
 
 app.use(cors());
 app.use(express.json());
+
+let roll = new Roll();
 
 diceMaxValues = {
     0: 4,
@@ -21,7 +24,7 @@ diceMaxValues = {
 function combineText(text) {
     retText = "";
     for (let i = 0; i < text.length; i++) {
-        if (i == text.length-1) {
+        if (i == text.length - 1) {
             retText += `${text[i]}`;
         }
         else {
@@ -36,15 +39,15 @@ function rollDice(dice) {
     let rollSum = 0;
     let rollList = []
     let rollTextList = []
-    for (var i=0; i<dice.length; i++) {
-        if (dice[i] !=0) {
-            for (var j=0; j< dice[i]; j++) {
+    for (var i = 0; i < dice.length; i++) {
+        if (dice[i] != 0) {
+            for (var j = 0; j < dice[i]; j++) {
                 roll = Math.floor(Math.random() * (diceMaxValues[i])) + 1;
                 rollSum += roll;
                 rollList.push(roll);
             }
         }
-        if (dice[i] > 0){
+        if (dice[i] > 0) {
             rollTextList.push(`${dice[i]}d${diceMaxValues[i]}`)
         }
     }
@@ -65,13 +68,43 @@ app.post('/roll-dice', (req, res) => {
 });
 
 app.post('/text-roll', (req, res) => {
-    let text = req.body;
-    
-    
+    let rollText = req.body[0].trim();
 
+    let regex1 = /[\d][A-Za-z][\d]|[0-9]/g;
+    let regex2 = /[^A-Za-z0-9\s]/g
+    let match1 = rollText.match(regex1);
+    let match2 = rollText.match(regex2);
 
-    console.log(text);
-    res.send('');
+    let rolls = [];
+
+    for (let i = 0; i < match1.length - 1; i++) {
+        rolls.push(roll.roll(match1[i]).result)
+    }
+
+    sum = 0
+    for (let i = 0; i < match2.length; i++) {
+        if (i == 0) {
+            if (match2[i] === '+') {
+                sum += (rolls[0] + rolls[1]);
+            } else {
+                sum -= (rolls[0] + rolls[1]);
+            }
+        } else if (i == match2.length - 1) {
+            if (match2[i] === '+') {
+                sum += Number(match1[match1.length - 1]);
+            } else {
+                sum -= Number(match1[match1.length - 1]);
+            }
+        } else {
+            if (match2[i] === '+') {
+                sum += rolls[i + 1];
+            } else {
+                sum -= rolls[i + 1];
+            }
+        }
+    }
+
+    res.send([sum, rolls, rollText]);
 });
 
 
