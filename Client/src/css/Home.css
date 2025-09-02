@@ -7,18 +7,18 @@
   width:100%;
   position: fixed;
   /* border: 2px solid gold;  */
-  overflow:auto;
+  /* overflow:auto; */
 }
 
 .DiceRollerContainer {
   border: 2px solid black;
   width: 253px;
-  height:750px;
+  height:95vh;
   margin-right:1%;
 } 
 
 .NotesAndPlayersContainer {
   border: 2px solid black;
-  width: 74%;
-  height: 750px;
+  width: 46.15vw;
+  height: 95vh;
 } 

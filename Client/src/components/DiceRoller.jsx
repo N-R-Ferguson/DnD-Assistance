@@ -1,6 +1,8 @@
 import { React, useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { orange } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
 import '../css/DiceRoller.css';
 
 
@@ -9,6 +11,15 @@ function DiceRoller() {
 
     const [dice, setDice] = useState([0, 0, 0, 0, 0, 0, 0]);
     const [rollInfo, setRollInfo] = useState([0, 0, ""]);
+
+    const BootstrapDiceButton = styled(Button)({
+        color: orange[600],
+        borderColor: orange[600],
+        '&:hover': {
+            color: orange[200],
+            borderColor: orange[200],
+        }
+    });
 
     const handleClick = (location) => (e) => {
         if (e.nativeEvent.which === 1) {
@@ -81,17 +92,17 @@ function DiceRoller() {
                     <div className="DiceRollContainer">
                         <div className="DiceSelector" onContextMenu={handleMenu}>
                             <Stack spacing={1} direction="column">
-                                <Button variant="outlined" onClick={(e) => handleClick(0)(e)} onContextMenu={(e) => handleClick(0)(e)}>4</Button>
-                                <Button variant="outlined" onClick={(e) => handleClick(1)(e)} onContextMenu={(e) => handleClick(1)(e)}>6</Button>
-                                <Button variant="outlined" onClick={(e) => handleClick(2)(e)} onContextMenu={(e) => handleClick(2)(e)}>8</Button>
-                                <Button variant="outlined" onClick={(e) => handleClick(3)(e)} onContextMenu={(e) => handleClick(3)(e)}>10</Button>
-                                <Button variant="outlined" onClick={(e) => handleClick(4)(e)} onContextMenu={(e) => handleClick(4)(e)}>12</Button>
-                                <Button variant="outlined" onClick={(e) => handleClick(5)(e)} onContextMenu={(e) => handleClick(5)(e)}>20</Button>
-                                <Button variant="outlined" onClick={(e) => handleClick(6)(e)} onContextMenu={(e) => handleClick(6)(e)}>100</Button>
+                                <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(0)(e)} onContextMenu={(e) => handleClick(0)(e)}>4</BootstrapDiceButton>
+                                <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(1)(e)} onContextMenu={(e) => handleClick(1)(e)}>6</BootstrapDiceButton>
+                                <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(2)(e)} onContextMenu={(e) => handleClick(2)(e)}>8</BootstrapDiceButton>
+                                <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(3)(e)} onContextMenu={(e) => handleClick(3)(e)}>10</BootstrapDiceButton>
+                                <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(4)(e)} onContextMenu={(e) => handleClick(4)(e)}>12</BootstrapDiceButton>
+                                <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(5)(e)} onContextMenu={(e) => handleClick(5)(e)}>20</BootstrapDiceButton>
+                                <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(6)(e)} onContextMenu={(e) => handleClick(6)(e)}>100</BootstrapDiceButton>
                             </Stack>
                         </div>
                         <div>
-                            <Button variant="outlined" onClick={handleRoll}>Roll</Button>
+                            <BootstrapDiceButton variant="outlined" onClick={handleRoll}>Roll</BootstrapDiceButton>
                         </div>
                     </div>
                 </div>

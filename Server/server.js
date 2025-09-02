@@ -56,6 +56,8 @@ function rollDice(dice) {
     return rollInfo;
 }
 
+
+
 app.get('/', (req, res) => {
     res.send('D&D Assistance Server is running');
 });
@@ -69,39 +71,69 @@ app.post('/roll-dice', (req, res) => {
 
 app.post('/text-roll', (req, res) => {
     let rollText = req.body[0].trim();
-
-    let regex1 = /[\d][A-Za-z][\d]|[0-9]/g;
-    let regex2 = /[^A-Za-z0-9\s]/g
-    let match1 = rollText.match(regex1);
-    let match2 = rollText.match(regex2);
-
-    let rolls = [];
-
-    for (let i = 0; i < match1.length - 1; i++) {
-        rolls.push(roll.roll(match1[i]).result)
-    }
-
     sum = 0
-    for (let i = 0; i < match2.length; i++) {
-        if (i == 0) {
-            if (match2[i] === '+') {
-                sum += (rolls[0] + rolls[1]);
+    let rolls = [];
+    try {
+        let regex1 = /[\d][A-Za-z][\d]|[0-9]/g;
+        let regex2 = /[^A-Za-z0-9\s]/g
+        let match1 = rollText.match(regex1);
+        let match2 = rollText.match(regex2);
+
+        console.log(match2)
+
+        for (let i = 0; i < match1.length - 1; i++) {
+            rolls.push(roll.roll(match1[i]).result)
+        }
+
+        for (let i = 0; i < match2.length; i++) {
+
+                if (match2[i] === '+') {
+                   
+                } else if (match2[i] === '-') {
+                   
+                } else {
+                    sum = "Roll syntax is incorrect.";
+                    rolls = [];
+                    break;
+                }
+
+                
+            if (i == 0) {
+                if (match2[i] === '+') {
+                    sum += (rolls[0] + rolls[1]);
+                } else if (match2[i] === '-') {
+                    sum -= (rolls[0] + rolls[1]);
+                } else {
+                    sum = "Roll syntax is incorrect.";
+                    rolls = [];
+                    break;
+                }
+            } else if (i == match2.length - 1) {
+                if (match2[i] === '+') {
+                    sum += Number(match1[match1.length - 1]);
+                } else if (match2[i] === '-') {
+                    sum -= Number(match1[match1.length - 1]);
+                } else {
+                    sum = "Roll syntax is incorrect.";
+                    rolls = [];
+                    break;
+                }
             } else {
-                sum -= (rolls[0] + rolls[1]);
-            }
-        } else if (i == match2.length - 1) {
-            if (match2[i] === '+') {
-                sum += Number(match1[match1.length - 1]);
-            } else {
-                sum -= Number(match1[match1.length - 1]);
-            }
-        } else {
-            if (match2[i] === '+') {
-                sum += rolls[i + 1];
-            } else {
-                sum -= rolls[i + 1];
+                if (match2[i] === '+') {
+                    sum += rolls[i + 1];
+                } else if (match2[i] === '-') {
+                    sum -= rolls[i + 1];
+                } else {
+                    sum = "Roll syntax is incorrect.";
+                    rolls = [];
+                    break;
+                }
             }
         }
+    } catch (err) {
+        console.log("Roll syntax is incorrect.");
+        sum = "Roll syntax is incorrect.";
+        rolls = [];
     }
 
     res.send([sum, rolls, rollText]);

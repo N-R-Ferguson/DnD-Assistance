@@ -1,0 +1,20 @@
+DROP TABLE IF EXISTS game;
+CREATE TABLE IF NOT EXISTS game(
+    gameID INT UNIQUE NOT NULL AUTOINCREMENT,
+    gameName VARCHAR NOT NULL,
+    gameDescription VARCHAR,
+    dataCreated TIMESTAMP NOT NULL,
+    PRIMAR KEY (gameId)
+);
+
+DROP TABLE IF EXISTS chat;
+CREATE TABLE IF NOT EXISTS chat (
+    textID UNIQUE NOT NULL,
+    gameID INT NOT NULL,
+    mesage VARCHAR NOT NULL,
+    timeSent TIMESTAMP NOT NULL,
+    FOREIGN KEY (gameID)
+);
+
+
+
