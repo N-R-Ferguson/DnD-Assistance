@@ -1,15 +1,26 @@
 const express = require('express');
 const cors = require('cors');
-const crypto = require('crypto');
+const multer = require('multer');
 let Roll = require('roll');
 // const pool = require('./Connection');
 const app = express();
 
-
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 var roller = new Roll();
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
+let upload = multer({ storage: storage });
 
 diceMaxValues = {
     0: 4,
@@ -36,6 +47,7 @@ function combineText(text) {
 }
 
 function rollDice(dice) {
+    let roll = 0;
     let rollSum = 0;
     let rollList = []
     let rollTextList = []
@@ -55,8 +67,6 @@ function rollDice(dice) {
     let rollInfo = [rollSum, rollList, rollText];
     return rollInfo;
 }
-
-
 
 app.get('/', (req, res) => {
     res.send('D&D Assistance Server is running');
@@ -113,13 +123,7 @@ app.post('/roll/text', (req, res) => {
 });
 
 
-app.post('/upload/files', (req, res) => {
-    console.log(req.body)
-    const files = req.body;
-
-
-
-
+app.post('/upload/files', upload.any('files'), (req, res) => {
     res.send(['Files uploaded']);
 });
 

@@ -25,19 +25,33 @@ export default function FileUpload() {
 
 
     const handleFileUpload = async (event) => {
-        console.log(event.target.files);
-        const body = event.target.files;
+        const files = event.target.files;
 
-        const url = "http://localhost:5000/upload-files";
+        const formData = new FormData();
+
+        for(var i=0; i<files.length; i++){
+            formData.append('File', files[i]);
+        }
+
+
+        const url = "http://localhost:5000/upload/files";
 
         const options = {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body)
+            header: { "Content-Type": "multipart/form-data" },
+            body: formData
         }
 
-        const response = await fetch(url, options)
-        console.log(await response.json());
+        console.log(options)
+        
+
+        await fetch(url, options)
+        .then((response) => {
+            console.log(response.json());
+        })
+        .catch(err => {
+            console.log(err)
+        });
     }
 
 
