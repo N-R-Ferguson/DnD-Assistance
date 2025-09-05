@@ -23,11 +23,9 @@ function DiceRoller() {
 
     const handleClick = (location) => (e) => {
         if (e.nativeEvent.which === 1) {
-            console.log("Left Click!!!");
             dice[location] += 1;
             setDice(dice);
         } else if (e.nativeEvent.which == 3) {
-            console.log("Right Click!!!");
             dice[location] -= 1;
             setDice(dice);
         }
@@ -43,7 +41,7 @@ function DiceRoller() {
 
     const handleRoll = async () => {
         const body = dice;
-        const url = "http://localhost:5000/roll-dice";
+        const url = "http://localhost:5000/roll/dice";
         const options = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -60,13 +58,14 @@ function DiceRoller() {
 
     const handleKeyDown = async (e) => {
         if (e.key === 'Enter') {
-            const cmd = e.target.value.slice(6);
-            
-            const url = "http://localhost:5000/text-roll";
+            const cmd = e.target.value.split("/roll");
+            const rollText = cmd.length>1 ? cmd[1].trim() : cmd[0].trim();
+
+            const url = "http://localhost:5000/roll/text";
             const options = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify([cmd])
+                body: JSON.stringify([rollText])
             }
 
             const response = await fetch(url, options);
@@ -76,7 +75,6 @@ function DiceRoller() {
     }
 
     useEffect(() => {
-        console.log(rollInfo[1]);
         console.log("Roll Value: " + rollInfo[0] +
             "\nList of Rolls: " + rollInfo[1] +
             "\nRolls in Text: " + rollInfo[2]
