@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { orange } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
+import FileUpload from './FileUpload';
 import '../css/TabHeader.css';
 import Tabs from './Tabs'
 
@@ -30,12 +31,16 @@ function TabHeader() {
             <div>
                 <div className="TabHeaderContainer">
                     <div className="TabHeader">
-                        <Stack spacing={1} direction="row">
-                            <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(0)(e)}>Players</BootstrapDiceButton>
-                            <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(1)(e)}>NPCs</BootstrapDiceButton>
-                            <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(2)(e)}>Towns</BootstrapDiceButton>
-                            <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(3)(e)}>GM Notes</BootstrapDiceButton>
+                        <Stack spacing={39} direction='row'>
+                            <Stack spacing={1} direction="row">
+                                <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(0)(e)}>Players</BootstrapDiceButton>
+                                <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(1)(e)}>NPCs</BootstrapDiceButton>
+                                <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(2)(e)}>Towns</BootstrapDiceButton>
+                                <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(3)(e)}>GM Notes</BootstrapDiceButton>
+                            </Stack>
+                            <FileUpload />
                         </Stack>
+                        
                     </div>
                 </div>
                 <div className='DisplayContainer'>
