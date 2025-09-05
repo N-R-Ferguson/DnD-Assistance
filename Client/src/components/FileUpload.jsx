@@ -24,8 +24,20 @@ export default function FileUpload() {
     });
 
 
-    const handleFileUpload = (event) => {
-        console.log(event.target.files)
+    const handleFileUpload = async (event) => {
+        console.log(event.target.files);
+        const body = event.target.files;
+
+        const url = "http://localhost:5000/upload-files";
+
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        }
+
+        const response = await fetch(url, options)
+        console.log(await response.json());
     }
 
 
