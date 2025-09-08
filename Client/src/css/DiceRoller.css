@@ -2,67 +2,60 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: flex-start;
-    width: 100%;
-    /* border: 2px solid yellow; */
+    padding: 1%
 }
 
 .DiceSelectorContainer {
-    /* border: 2px solid orange; */
     padding-left: 5%;
     padding-top: 2%;
-    
+    flex-grow:1; 
 }
 
 .DiceRollContainer {
     display: flex;
     flex-direction: row;
-    /* flex-wrap: wrap; */
     align-items: flex-end;
     justify-content: flex-start;
     column-gap: 70px;
 }
 
 .DiceSelector {
-    /* border: 2px solid green; */
     padding: auto;
 }
 
+.TextContainer {
+    flex-grow:2;
+}
+
 .DiceTextChatAndBoxContainer {
-    /* border: 2px solid purple;  */
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: center;
-    width: 100%;
-}
-
-.DiceHistory {
-    width: 235px;
-    padding: 1%;
+ 
 }
 
 .RollText {
     border: 2px solid black;
-    width: 100%;
-    height: 53vh;
-    /* overflow-y: scroll; */
-    margin: 2%;
+    max-height: 45vh;
+    min-width:10vw;
+    overflow: auto;
 }
 
 .DiceBoxContainer {
-    /* border: 2px solid orange; */
-    width: 245px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
+    max-height: 25vh;
 
 }
 
+
 .DiceTextInput {
-    width: 220px;
+    min-width: 10vw;
 }

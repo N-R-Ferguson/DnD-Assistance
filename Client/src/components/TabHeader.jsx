@@ -18,7 +18,7 @@ function TabHeader() {
         '&:hover': {
             color: orange[200],
             borderColor: orange[200],
-        }
+        },
     });
 
 
@@ -28,26 +28,26 @@ function TabHeader() {
 
     return (
         <>
-            <div>
+            <div className="DM-Player-Container">
                 <div className="TabHeaderContainer">
                     <div className="TabHeader">
-                        <Stack spacing={39} direction='row'>
-                            <Stack spacing={1} direction="row">
-                                <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(0)(e)}>Players</BootstrapDiceButton>
-                                <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(1)(e)}>NPCs</BootstrapDiceButton>
-                                <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(2)(e)}>Towns</BootstrapDiceButton>
-                                <BootstrapDiceButton variant="outlined" onClick={(e)=>handleClick(3)(e)}>GM Notes</BootstrapDiceButton>
-                            </Stack>
-                            <FileUpload />
+                        <Stack spacing={1}
+                            direction="row"
+                            useFlexGap
+                            sx={{ flexWrap: 'wrap' }}>
+                            <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(0)(e)}>Players</BootstrapDiceButton>
+                            <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(1)(e)}>NPCs</BootstrapDiceButton>
+                            <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(2)(e)}>Towns</BootstrapDiceButton>
+                            <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(3)(e)}>GM Notes</BootstrapDiceButton>
                         </Stack>
-                        
+                        <FileUpload />
                     </div>
                 </div>
                 <div className='DisplayContainer'>
-                    <Tabs tabID={tab}/>
+                    <Tabs tabID={tab} />
                 </div>
-
             </div>
+
         </>
     )
 }

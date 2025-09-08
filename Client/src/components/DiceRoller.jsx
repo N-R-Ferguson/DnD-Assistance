@@ -59,7 +59,7 @@ function DiceRoller() {
     const handleKeyDown = async (e) => {
         if (e.key === 'Enter') {
             const cmd = e.target.value.split("/roll");
-            const rollText = cmd.length>1 ? cmd[1].trim() : cmd[0].trim();
+            const rollText = cmd.length > 1 ? cmd[1].trim() : cmd[0].trim();
 
             const url = "http://localhost:5000/roll/text";
             const options = {
@@ -104,20 +104,36 @@ function DiceRoller() {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className="TextContainer">
                     <div className="DiceTextChatAndBoxContainer">
                         <div className="DiceHistory">
                             <p>Dice Roll History</p>
                             <div className="RollText">
+                                {/* <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p>
+                                <p>DICE HISTORY</p> */}
                             </div>
                         </div>
                         <div className="DiceBoxContainer">
-                            <div>
-                                <div className="DiceTextbox">
-                                    <input type="text" className="DiceTextInput" placeholder="Enter Dice Roll Ex: /roll 3d6"
-                                        onKeyDown={handleKeyDown} >
-                                    </input>
-                                </div>
+                            <div className="DiceTextbox">
+                                <input type="text" className="DiceTextInput" placeholder="Enter Dice Roll Ex: /roll 3d6"
+                                    onKeyDown={handleKeyDown} >
+                                </input>
                             </div>
                         </div>
                     </div>
