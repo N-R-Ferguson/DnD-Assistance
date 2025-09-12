@@ -41,6 +41,7 @@
 
 .RollText {
     border: 2px solid black;
+    border-radius: 20px;
     min-height:49vh;
     max-height: 49vh;
     min-width:19.4vw;
