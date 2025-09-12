@@ -30,7 +30,6 @@ function TabHeader() {
         <>
             <div className="DM-Player-Container">
                 <div className="TabHeaderContainer">
-                    <div className="TabHeader">
                         <Stack spacing={1}
                             direction="row"
                             useFlexGap
@@ -40,11 +39,12 @@ function TabHeader() {
                             <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(2)(e)}>Towns</BootstrapDiceButton>
                             <BootstrapDiceButton variant="outlined" onClick={(e) => handleClick(3)(e)}>GM Notes</BootstrapDiceButton>
                         </Stack>
-                        <FileUpload />
-                    </div>
+                        <FileUpload tabID={tab} />
                 </div>
                 <div className='DisplayContainer'>
-                    <Tabs tabID={tab} />
+                    <div>
+                        <Tabs tabID={tab} />
+                    </div>
                 </div>
             </div>
 

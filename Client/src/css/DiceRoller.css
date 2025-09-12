@@ -18,7 +18,8 @@
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-start;
-    column-gap: 70px;
+    flex-wrap: wrap;
+    column-gap: calc(20vw * 0.54);
 }
 
 .DiceSelector {
@@ -40,9 +41,13 @@
 
 .RollText {
     border: 2px solid black;
-    max-height: 45vh;
-    min-width:10vw;
-    overflow: auto;
+    min-height:49vh;
+    max-height: 49vh;
+    min-width:19.4vw;
+    max-width: 19..4vw; 
+    overflow-x: auto; 
+    display:flex;
+    flex-direction: column;
 }
 
 .DiceBoxContainer {
@@ -52,7 +57,7 @@
     align-items: stretch;
     justify-content: center;
     max-height: 25vh;
-
+    margin-top: 10px;
 }
 
 

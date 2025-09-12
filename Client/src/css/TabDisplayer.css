@@ -1,5 +1,6 @@
 .Page {
-    height: 76vh;
+    min-height:73vh;
+    max-height: 73vh;
     width: 43.7vw;
 
     margin: 1%;

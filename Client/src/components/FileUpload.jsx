@@ -4,7 +4,7 @@ import { orange } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-export default function FileUpload() {
+export default function FileUpload({ tabID }) {
     const FileUploadButton = styled('input')({
         clip: 'rect(0,0,0,0)',
         clipPath: 'insert(50%)',
@@ -29,50 +29,50 @@ export default function FileUpload() {
 
         const formData = new FormData();
 
-        for(var i=0; i<files.length; i++){
+        formData.append('Tab', tabID)
+
+        for (var i = 0; i < files.length; i++) {
             formData.append('File', files[i]);
         }
 
 
+        console.log(formData)
         const url = "http://localhost:5000/upload/files";
 
         const options = {
             method: "POST",
             header: { "Content-Type": "multipart/form-data" },
-            body: formData
+            body: formData,
         }
 
         console.log(options)
-        
+
 
         await fetch(url, options)
-        .then((response) => {
-            console.log(response.json());
-        })
-        .catch(err => {
-            console.log(err)
-        });
+            .then((response) => {
+                console.log(response.json());
+            })
+            .catch(err => {
+                console.log(err)
+            });
     }
 
 
-    return(
+    return (
         <>
-            <div>
-                <BootstrapUploadButton
-                    component='label'
-                    role={undefined}
-                    variant='contained'
-                    startIcon={<CloudUploadIcon />}
-                >
-                    <FileUploadButton 
-                        type='file'
-                        onChange={handleFileUpload}
-                        multiple
-                    />
-                    Upload Files
-                </BootstrapUploadButton>
-            
-            </div>
+            <BootstrapUploadButton
+                component='label'
+                role={undefined}
+                variant='contained'
+                startIcon={<CloudUploadIcon />}
+            >
+                <FileUploadButton
+                    type='file'
+                    onChange={handleFileUpload}
+                    multiple
+                />
+                Upload Files
+            </BootstrapUploadButton>
         </>
     )
 }

@@ -109,24 +109,7 @@ function DiceRoller() {
                         <div className="DiceHistory">
                             <p>Dice Roll History</p>
                             <div className="RollText">
-                                {/* <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p>
-                                <p>DICE HISTORY</p> */}
+                               
                             </div>
                         </div>
                         <div className="DiceBoxContainer">

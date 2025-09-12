@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 let Roll = require('roll');
+const fs = require('fs');
 // const pool = require('./Connection');
 const app = express();
 
@@ -9,20 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-var roller = new Roll();
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
-
-let upload = multer({ storage: storage });
-
-diceMaxValues = {
+const diceMaxValues = {
     0: 4,
     1: 6,
     2: 8,
@@ -31,6 +19,15 @@ diceMaxValues = {
     5: 20,
     6: 100
 }
+
+const tabs = {
+    0: 'players',
+    1: 'npcs',
+    2: 'towns',
+    3: 'gm_notes'
+}
+
+var roller = new Roll();
 
 function combineText(text) {
     retText = "";
@@ -67,6 +64,27 @@ function rollDice(dice) {
     let rollInfo = [rollSum, rollList, rollText];
     return rollInfo;
 }
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const tab = tabs[req.body.Tab];
+        const __dir = `./uploads/${tab}`
+
+        if (!fs.existsSync(__dir)) {
+            fs.mkdirSync(__dir);
+        }
+        
+        cb(null, __dir);
+        
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ 
+    storage: storage 
+});
 
 app.get('/', (req, res) => {
     res.send('D&D Assistance Server is running');

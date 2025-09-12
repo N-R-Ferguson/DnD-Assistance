@@ -4,7 +4,7 @@
   align-items: stretch;
   justify-content: flex-start;
   width: 100vw;
-  height: 100vh;
+  height: 95vh;
   position: fixed;
   flex-grow:3;
   overflow-y:auto;
