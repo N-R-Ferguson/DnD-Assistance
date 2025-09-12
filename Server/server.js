@@ -3,7 +3,7 @@ const cors = require('cors');
 const multer = require('multer');
 let Roll = require('roll');
 const fs = require('fs');
-// const pool = require('./Connection');
+const pool = require('./db');
 const app = express();
 
 app.use(cors());
@@ -46,14 +46,14 @@ function combineText(text) {
 function rollDice(dice) {
     let roll = 0;
     let rollSum = 0;
-    let rollList = []
+    let rollList = ""
     let rollTextList = []
     for (var i = 0; i < dice.length; i++) {
         if (dice[i] != 0) {
             for (var j = 0; j < dice[i]; j++) {
                 roll = Math.floor(Math.random() * (diceMaxValues[i])) + 1;
                 rollSum += roll;
-                rollList.push(roll);
+                rollList = rollList + roll + " ";
             }
         }
         if (dice[i] > 0) {
@@ -61,7 +61,7 @@ function rollDice(dice) {
         }
     }
     let rollText = combineText(rollTextList);
-    let rollInfo = [rollSum, rollList, rollText];
+    let rollInfo = [rollSum, rollList.trim(), rollText];
     return rollInfo;
 }
 
@@ -86,14 +86,48 @@ const upload = multer({
     storage: storage 
 });
 
+
+async function addRollTODatabase(rollInformation) {
+    console.log(rollInformation);
+
+    const query = "INSERT INTO rolls (roll, rollOutput, rollBreakDown) VALUES ($1, $2, $3)";
+    
+    await pool.query(query, [rollInformation[0], rollInformation[1], rollInformation[2]]);
+}
+
+
+
+
+
+
 app.get('/', (req, res) => {
     res.send('D&D Assistance Server is running');
 });
 
+app.get('/rolls', async (req, res) => {
+
+    const query = "SELECT * FROM rolls ORDER BY rollID DESC LIMIT 20";
+
+    const response = await pool.query(query, []);
+
+
+    res.send(response.rows);
+});
+
+app.get('/files', (req, res) => {
+    res.send('Notes Page')
+});
+
+
+
 app.post('/roll/dice', (req, res) => {
     dice = req.body;
     let rollInfo = rollDice(dice);
-    console.log(rollInfo);
+
+    addRollTODatabase(rollInfo)
+    .then(console.log('Roll Added To Database'))
+    .catch(err => console.log(err));
+
     res.send(rollInfo);
 });
 
@@ -101,8 +135,6 @@ app.post('/roll/text', (req, res) => {
     let rollText = req.body[0];
     let rolls = [];
     let sum = -1;
-
-    console.log(rollText)
 
     try {
         let regex1 = /[\d]+[A-Za-z][\d]+|[0-9]/g;
@@ -136,8 +168,16 @@ app.post('/roll/text', (req, res) => {
         sum = "Roll syntax is incorrect.";
         rolls = [];
     }
-    console.log(sum)
-    res.send([sum, rolls, rollText]);
+    let diceRolls = ""
+    for(let i=0; i < rolls.length; i++) {
+        diceRolls = diceRolls + rolls[i] + " ";
+    }
+    diceRolls = diceRolls.trim()
+    addRollTODatabase([sum, diceRolls, rollText])
+    .then(console.log('Roll Added To Database'))
+    .catch(err => console.log(err));
+
+    res.send([sum, diceRolls, rollText]);
 });
 
 
