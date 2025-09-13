@@ -11,6 +11,7 @@ function DiceRoller() {
 
     const [dice, setDice] = useState([0, 0, 0, 0, 0, 0, 0]);
     const [rollInfo, setRollInfo] = useState([0, 0, ""]);
+    const [rollHistory, setRollHistory] = useState();
 
     const BootstrapDiceButton = styled(Button)({
         color: orange[600],
@@ -74,13 +75,20 @@ function DiceRoller() {
         }
     }
 
-    useEffect(() => {
-        console.log("Roll Value: " + rollInfo[0] +
-            "\nList of Rolls: " + rollInfo[1] +
-            "\nRolls in Text: " + rollInfo[2]
-        );
+    const getRollHistory = async () => {
+        const url = "http://localhost:5000/rolls";
 
-    });
+        const response = await fetch(url);
+        const history =  await response.json();
+    
+        setRollHistory(history);
+    }
+
+
+    useEffect(() => {
+        getRollHistory()
+
+    }, []);
 
 
     return (
@@ -108,9 +116,13 @@ function DiceRoller() {
                     <div className="DiceTextChatAndBoxContainer">
                         <div className="DiceHistory">
                             <p>Dice Roll History</p>
-                            <div className="RollText">
-                               
-                            </div>
+                            {rollHistory?.map((roll) => (
+                                <div className="RollText">
+                                    <div key={roll.rollID}>
+                                        <p>roll.roll</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                         <div className="DiceBoxContainer">
                             <div className="DiceTextbox">

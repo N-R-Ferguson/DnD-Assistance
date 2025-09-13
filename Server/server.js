@@ -106,11 +106,10 @@ app.get('/', (req, res) => {
 
 app.get('/rolls', async (req, res) => {
 
-    const query = "SELECT * FROM rolls ORDER BY rollID DESC LIMIT 20";
+    const query = "SELECT rollID, roll FROM rolls ORDER BY rollID DESC LIMIT 20";
 
     const response = await pool.query(query, []);
-
-
+    console.log(response);
     res.send(response.rows);
 });
 
